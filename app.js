@@ -1,12 +1,22 @@
+//============
+//Dependencies
+//============
 var express = require("express");
-var Twit = require("twit");
+var T = require("twit");
+var mongoose = require("mongoose");
+
+var Tweet = require("./models/tweet")
+//============
+//Config Files
+//============
 var twitter_config = require("./config");
 
-var app = express();
+mongoose.connect("mongodb://localhost/twitter");
 
+var app = express();
 app.set("view engine", "ejs");
 
-var client = new Twit({
+var twitter = new T({
   consumer_key: twitter_config.CONSUMER_KEY,
   consumer_secret: twitter_config.CONSUMER_SECRET,
   access_token: twitter_config.ACCESS_TOKEN_KEY,
@@ -20,6 +30,24 @@ var client = new Twit({
 app.get("/", function(req, res){
     res.render("index");
 });
+
+//
+// filter the public stream by the latitude/longitude bounded box of San Francisco
+//
+var atlanta = [ '-122.75', '36.8', '-121.75', '37.8' ]
+
+var stream = twitter.stream('statuses/sample')
+
+stream.on('tweet', function (tweet) {
+    if(tweet.geo != null) {
+        console.log("====================================");
+        console.log("Coordinates:",tweet.geo.coordinates);
+        console.log("Hash Tags:", tweet.entities.hashtags);
+        console.log("====================================");
+
+
+    }
+})
 
 app.listen(process.env.port | 8080, process.env.IP, function(){
     console.log("Running in port 8080");

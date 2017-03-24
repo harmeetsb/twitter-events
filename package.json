@@ -1,0 +1,27 @@
+{
+  "name": "twitter-events",
+  "version": "1.0.0",
+  "description": "backend service for application that will recommend most popular events happening around the user",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.1",
+    "twit": "^2.2.5",
+    "twitter": "^1.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harmeetsb/twitter-events.git"
+  },
+  "author": "Harmeet Bindra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harmeetsb/twitter-events/issues"
+  },
+  "homepage": "https://github.com/harmeetsb/twitter-events#readme"
+}
