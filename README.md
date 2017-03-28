@@ -1,6 +1,6 @@
 # Twitter-events #
 
-##To get started with this do the following:##
+#To get started with this do the following:#
 
 1) Download and install NodeJS and NPM 
 
