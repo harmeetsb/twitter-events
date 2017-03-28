@@ -19,6 +19,6 @@ module.exports = {
 
 5) Now you can start the server by running "node app.js"
 
-#You can access the frontend at http://localhost:8080/
+## You can access the frontend at http://localhost:8080/
 
-####Cheers, Harmeet
+#### Cheers, Harmeet
