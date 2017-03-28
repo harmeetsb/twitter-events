@@ -1,10 +1,11 @@
 var mongoose = require("mongoose");
 
 var tweetSchema = mongoose.Schema({
-    tweet: String,
+    hashtags: [],
     coordinates: [],
     created_at: {
-        type: Date, 
+        type: Date,
+        default: Date.now(), 
         expiresAfterSeconds: 86400
     }
 });

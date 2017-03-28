@@ -8,7 +8,16 @@
 
 3) Run "npm install" this will get you all of the dependencies 
 
-4) Now you can start the server by running "node app.js"
+4) Add config.js. config.js format: 
+
+module.exports = {
+    CONSUMER_KEY : 	"",
+    CONSUMER_SECRET : "",
+    ACCESS_TOKEN_KEY : "",
+    ACCESS_TOKEN_SECRET: ""
+}
+
+5) Now you can start the server by running "node app.js"
 
 #You can access the frontend at http://localhost:8080/
 

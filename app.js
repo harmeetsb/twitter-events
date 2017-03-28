@@ -31,21 +31,25 @@ app.get("/", function(req, res){
     res.render("index");
 });
 
-//
-// filter the public stream by the latitude/longitude bounded box of San Francisco
-//
-var atlanta = [ '-122.75', '36.8', '-121.75', '37.8' ]
-
 var stream = twitter.stream('statuses/sample')
 
 stream.on('tweet', function (tweet) {
     if(tweet.geo != null) {
-        console.log("====================================");
-        console.log("Coordinates:",tweet.geo.coordinates);
-        console.log("Hash Tags:", tweet.entities.hashtags);
-        console.log("====================================");
-
-
+         console.log("====================================");
+         console.log("Coordinates:",tweet.geo.coordinates);
+         console.log("Hash Tags:", tweet.entities.hashtags);
+         console.log("====================================");
+        var tweet = {
+            hashtags: tweet.entities.hashtags,
+            coordinates: tweet.geo.coordinates
+        };
+        Tweet.create(tweet, function(err, tweet){
+            if(err){
+                console.log("error inserting tweet");
+            } else {
+                console.log("Sucessfully inserted tweet");
+            }
+        });
     }
 })
 
