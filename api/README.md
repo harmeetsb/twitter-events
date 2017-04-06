@@ -9,3 +9,8 @@
     ``python flaskapp.py``
 
 ## You can access the api at http://localhost:5000/
+
+# Testing #
+
+To test POST requests to API use curl:
+``curl --data "lat=33.7490&lon=-84.3880" http://127.0.0.1:5000/``

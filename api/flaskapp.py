@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 import json
 from bson import BSON, json_util
@@ -11,13 +11,28 @@ app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/twitter'
 
 mongo = PyMongo(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def base():
-    tweets = mongo.db.tweets
-    output = []
-    for tweet in tweets.find():
-        output.append({'id': tweet['_id'], 'coords': tweet['coordinates']})
-    return json.dumps(output, sort_keys=True, indent=4, default=json_util.default)
+    if request.method == 'GET':
+        print "GET"
+        tweets = mongo.db.tweets
+        output = []
+        for tweet in tweets.find():
+            output.append({'id': tweet['_id'], 'coords': tweet['coordinates']})
+        return json.dumps(output, sort_keys=True, indent=4, default=json_util.default)
+    if request.method == 'POST':
+        print "POST"
+        try:
+            lat = float(request.form['lat'])
+            lon = float(request.form['lon'])
+            tweets = mongo.db.tweets
+            output = []
+            for tweet in tweets.find({'coordinates.0': {'$gt': lat - 0.4, '$lt': lat + 0.4},
+                'coordinates.1': {'$gt': lon - 0.4, '$lt': lon + 0.4}}):
+                output.append({'id': tweet['_id'], 'coords': tweet['coordinates']})
+            return json.dumps(output, sort_keys=True, indent=4, default=json_util.default)
+        except Exception as e:
+            return str(e)
 
 @app.route('/home')
 def home():
