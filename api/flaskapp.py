@@ -20,8 +20,11 @@ def base():
     if request.method == 'GET':
         print "GET"
         for tweet in tweets.find():
-            output.append({'id': tweet['_id'], 'coords': tweet['coordinates']})
-        return json.dumps(output, sort_keys=True, indent=4, default=json_util.default)
+            output.append(
+                {'id': tweet['_id'], 
+                'hashtags': tweet['hashtags'], 
+                'coords': tweet['coordinates']})
+        return json.dumps(output, indent=4, default=json_util.default)
 
     if request.method == 'POST':
         print "POST"
@@ -30,10 +33,14 @@ def base():
             lon = float(request.form['lon'])
 
             # Find all tweets within about a 50km radius, 0.4 lat ~ 50km
-            for tweet in tweets.find({'coordinates.0': {'$gt': lat - 0.4, '$lt': lat + 0.4},
+            for tweet in tweets.find(
+                {'coordinates.0': {'$gt': lat - 0.4, '$lt': lat + 0.4},
                 'coordinates.1': {'$gt': lon - 0.4, '$lt': lon + 0.4}}):
-                output.append({'hashtags': tweet['hashtags'], 'coords': tweet['coordinates']})
-            return json.dumps(output, sort_keys=True, indent=4, default=json_util.default)
+                output.append(
+                    {'id': tweet['_id'], 
+                    'hashtags': tweet['hashtags'], 
+                    'coords': tweet['coordinates']})
+            return json.dumps(output, indent=4, default=json_util.default)
         except Exception as e:
             return str(e)
 
