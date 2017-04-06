@@ -2,8 +2,8 @@
 
 ## RESTful API ##
 
-1) Download and install Flask and Flask-Bootsrap
-    ``pip install requirements.txt``
+1) Download and install necessary requirements:
+    ``pip install -r requirements.txt``
 
 2) Now you can start the server by running:
     ``python flaskapp.py``
